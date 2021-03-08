@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "66754216917",
+    "project_id": "tgapp-d76b7",
+    "storage_bucket": "tgapp-d76b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66754216917:android:3f8147e9394ca7d7f1335c",
+        "android_client_info": {
+          "package_name": "com.example.tgapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "66754216917-357qm1cknc0vl6l8t05vf0ls23ovbg1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR1cOc_l51uwYdTIAhnCr-_H9BkczobA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "66754216917-357qm1cknc0vl6l8t05vf0ls23ovbg1u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
