@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/darkGreen</color>
+    <color name="colorPrimaryDark">#03A9F4</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorGreen">#007c91</color>
+    <color name="colorRedLight">#e1f5fe</color>
+
+    <color name="green">#00acc1</color>
+
+    <color name="darkGreen">#007c91</color>
+    <color name="shadow_color">#3C3C3C</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="background">#81b9bf</color>
+
+    <color name="text">#428e92</color>
+
+    <color name="extra_dark">#00363a</color>
+    <color name="unselected">#A7FFEB</color>
+
+    <color name="light_color">#e5ffff</color>
+
+
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+
+</resources>
