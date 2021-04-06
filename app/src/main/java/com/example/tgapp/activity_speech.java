@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -20,10 +21,12 @@ import java.util.Random;
 
 public class activity_speech extends AppCompatActivity {
 
+    TextToSpeech textToSpeech;
+
     public static final int REQUEST_CODE_SPEECH_INPUT = 1000;
 
     TextView mTextTv, textToRepeat;
-    ImageButton mVoiceBtn;
+    ImageButton mVoiceBtn,listenBtn;
     Button nextVoice;
     String[] softwareEngineer  ={
             "evaluate",
@@ -69,11 +72,22 @@ public class activity_speech extends AppCompatActivity {
 
         //añadir fragment
 
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == TextToSpeech.SUCCESS){
+                    //Select language
+                    int lang = textToSpeech.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
+
 
         mTextTv = findViewById(R.id.textTv);
         mVoiceBtn = findViewById(R.id.voiceBtn);
         textToRepeat = findViewById(R.id.TextToRepeat);
         nextVoice = findViewById(R.id.NextVoice);
+        listenBtn = findViewById(R.id.listenBtn);
 
 
         mVoiceBtn.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +103,28 @@ public class activity_speech extends AppCompatActivity {
                 next();
             }
         });
+
+        listenBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listen();
+            }
+        });
+
+
+    }
+
+    public void listen(){
+
+
+        String s =  textToRepeat.getText().toString();
+
+        //text convert
+
+        int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
+
+
+
     }
 
     public void speak(){

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/home"
-    android:title="Home"
-    android:icon="@drawable/house"
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/test_quiz"
+        android:title="Quiz"
+        
 
 
-    />
+        />
+
+    <item
+        android:id="@+id/Practice"
+        android:icon="@drawable/practice"
+
+        android:title="Practice" />
 
     <item
         android:id="@+id/rank"

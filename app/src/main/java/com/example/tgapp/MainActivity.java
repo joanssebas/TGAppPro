@@ -53,17 +53,22 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.content,new HomeFragment());
                         transaction.commit();
                         break;
+
                     case 1:
+                        transaction.replace(R.id.content,new PracticeFragment());
+                        transaction.commit();
+                        break;
+                    case 2:
                         transaction.replace(R.id.content,new LeaderboardFragment());
                         transaction.commit();
                         break;
 
-                    case 2:
+                    case 3:
                         transaction.replace(R.id.content,new WalletFragment());
                         transaction.commit();
                         break;
 
-                    case 3:
+                    case 4:
                         transaction.replace(R.id.content,new ProfileFragment());
                         transaction.commit();
                         break;

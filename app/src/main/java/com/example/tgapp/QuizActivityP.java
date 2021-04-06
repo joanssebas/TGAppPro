@@ -1,7 +1,5 @@
 package com.example.tgapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,8 +8,10 @@ import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tgapp.databinding.ActivityPracticeBinding;
 import com.example.tgapp.databinding.ActivityQuizBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -22,30 +22,29 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 
-public class QuizActivity extends AppCompatActivity {
+public class QuizActivityP extends AppCompatActivity {
 
     TextToSpeech textToSpeech;
 
-    //creamos el question text
     TextView questionText;
 
     final Handler handler = new Handler(Looper.getMainLooper());
 
-    ActivityQuizBinding binding;
-    ArrayList<Question> questions;
+
+    ActivityPracticeBinding binding;
+    ArrayList<QuestionP> questions;
     int index =0;
-    Question question;
+    QuestionP question;
     CountDownTimer timer;
 
     FirebaseFirestore database;
     int correctAnswers = 0;
-    int nQuestions = 9;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityQuizBinding.inflate(getLayoutInflater());
+        binding=ActivityPracticeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         //text to speech
@@ -62,23 +61,13 @@ public class QuizActivity extends AppCompatActivity {
         final String catId = getIntent().getStringExtra("catId");
 
         Random random = new Random();
-        final int rand = random.nextInt(8);
-
-        //lo sacamos de la vista
-        questionText = findViewById(R.id.question);
+        final int rand = random.nextInt(3);
 
         questions = new ArrayList<>();
         database = FirebaseFirestore.getInstance();
 
-        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int i) {
-                if(i == TextToSpeech.SUCCESS){
-                    //Select language
-                    int lang = textToSpeech.setLanguage(Locale.ENGLISH);
-                }
-            }
-        });
+        //lo sacamos de la vista
+        questionText = findViewById(R.id.question);
 
         questionText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,27 +80,26 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-
-        database.collection("categories")
+        database.collection("categoriesP")
                 .document(catId)
                 .collection("questions")
-                .whereGreaterThanOrEqualTo("index", nQuestions)
+                .whereGreaterThanOrEqualTo("index", 16)
                 .orderBy("index")
-                .limit(nQuestions).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .limit(16).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.getDocuments().size() < nQuestions){
-                    database.collection("categories")
+                if(queryDocumentSnapshots.getDocuments().size() < 16){
+                    database.collection("categoriesP")
                             .document(catId)
                             .collection("questions")
-                            .whereLessThanOrEqualTo("index", nQuestions)
+                            .whereLessThanOrEqualTo("index", 16)
                             .orderBy("index")
-                            .limit(nQuestions).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>(){
+                            .limit(16).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>(){
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
                                 for(DocumentSnapshot snapshot : queryDocumentSnapshots){
-                                    Question question = snapshot.toObject(Question.class);
+                                    QuestionP question = snapshot.toObject(QuestionP.class);
                                     questions.add(question);
                                 }
                             setNextQuestion();
@@ -121,7 +109,7 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 else{
                     for(DocumentSnapshot snapshot : queryDocumentSnapshots){
-                        Question question = snapshot.toObject(Question.class);
+                        QuestionP question = snapshot.toObject(QuestionP.class);
                         questions.add(question);
                     }
                     setNextQuestion();
@@ -132,7 +120,23 @@ public class QuizActivity extends AppCompatActivity {
         resetTimer();
 
 
+    }
 
+    void setNextQuestion(){
+        if(timer != null)
+            timer.cancel();
+
+
+        timer.start();
+        if (index < questions.size()){
+            binding.questionCounter.setText(String.format("%d/%d", (index + 1), questions.size()));
+            question = questions.get(index);
+            binding.question.setText(question.getQuestion());
+            binding.option1.setText(question.getOption1());
+            binding.option2.setText(question.getOption2());
+
+
+        }
     }
 
     void checkAnswer(TextView textView){
@@ -157,7 +161,7 @@ public class QuizActivity extends AppCompatActivity {
                         setNextQuestion();
 
                     }else {
-                        Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
+                        Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
                         startActivity(intent);
@@ -167,7 +171,7 @@ public class QuizActivity extends AppCompatActivity {
                     }
 
                 }
-            }, 200);
+            }, 500);
 
 
 
@@ -185,7 +189,7 @@ public class QuizActivity extends AppCompatActivity {
                         setNextQuestion();
 
                     }else {
-                        Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
+                        Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
                         startActivity(intent);
@@ -201,32 +205,10 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    void setNextQuestion(){
-        if(timer != null)
-            timer.cancel();
-
-
-        timer.start();
-        if (index < questions.size()){
-            binding.questionCounter.setText(String.format("%d/%d", (index + 1), questions.size()));
-            question = questions.get(index);
-            binding.question.setText(question.getQuestion());
-            binding.option1.setText(question.getOption1());
-            binding.option2.setText(question.getOption2());
-            binding.option3.setText(question.getOption3());
-            binding.option4.setText(question.getOption4());
-
-        }
-    }
-
-
-
-
     void reset(){
         binding.option1.setBackground(getResources().getDrawable(R.drawable.option_unselected));
         binding.option2.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option3.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option4.setBackground(getResources().getDrawable(R.drawable.option_unselected));
+
     }
 
     void resetTimer(){
@@ -263,21 +245,7 @@ public class QuizActivity extends AppCompatActivity {
         }
 
 
-        else if(question.getAnswer().equals(binding.option3.getText().toString())){
-            //String s = binding.option3.getText().toString();
-            //int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
-            binding.option3.setBackground(getResources().getDrawable(R.drawable.option_right));
-            setNextQuestion();
-        }
 
-
-
-        else if(question.getAnswer().equals(binding.option4.getText().toString())){
-            //String s = binding.option4.getText().toString();
-            //int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
-            binding.option4.setBackground(getResources().getDrawable(R.drawable.option_right));
-            setNextQuestion();
-        }
 
 
 
@@ -288,12 +256,12 @@ public class QuizActivity extends AppCompatActivity {
 
             case R.id.option_1:
             case R.id.option_2:
-            case R.id.option_3:
-            case R.id.option_4:
+
                 if(timer != null)
                     timer.cancel();
                 TextView selected = (TextView) view;
                 checkAnswer(selected);
+
                 break;
 
             case R.id.nextBtn:
@@ -303,7 +271,7 @@ public class QuizActivity extends AppCompatActivity {
                     setNextQuestion();
 
                 }else {
-                    Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
+                    Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
                     intent.putExtra("correct",correctAnswers);
                     intent.putExtra("total",questions.size());
                     startActivity(intent);
