@@ -66,6 +66,13 @@ public class PracticeFragment extends Fragment {
             }
         });
 
+        binding.listenBtnP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),listenActivity.class));
+            }
+        });
+
 
         CategoryPAdapter adapter = new CategoryPAdapter(getContext(), categories);
 

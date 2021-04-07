@@ -67,6 +67,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        binding.listenQBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),listenActivity.class));
+            }
+        });
+
 
         CategoryAdapter adapter = new CategoryAdapter(getContext(), categories);
 

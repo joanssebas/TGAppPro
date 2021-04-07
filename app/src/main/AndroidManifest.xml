@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TGApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".listenActivity"></activity>
+        <activity android:name=".ForgotPassword" />
         <activity android:name=".activity_speech" />
         <activity android:name=".AdsActivity" />
         <activity android:name=".ResultActivity" />
