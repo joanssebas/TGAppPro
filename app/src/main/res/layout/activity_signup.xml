@@ -10,18 +10,18 @@
     android:layout_marginEnd="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="10dp"
-    android:background="@color/background"
+    android:background="@color/categories"
     android:hapticFeedbackEnabled="false"
     tools:context=".SignupActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/squirrel" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -50,6 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/viga"
                 android:gravity="center"
                 android:text="CREATE AN ACCOUNT"
                 android:textColor="@color/darkGreen"
@@ -77,6 +78,7 @@
                 android:drawableLeft="@drawable/user"
                 android:drawablePadding="15dp"
                 android:ems="10"
+                android:fontFamily="@font/viga"
                 android:hapticFeedbackEnabled="false"
                 android:hint="Full name"
                 android:inputType="textPersonName"
@@ -99,6 +101,7 @@
                 android:drawableLeft="@drawable/email"
                 android:drawablePadding="15dp"
                 android:ems="10"
+                android:fontFamily="@font/viga"
                 android:hapticFeedbackEnabled="false"
                 android:hint="Email Address"
                 android:inputType="textEmailAddress"
@@ -121,6 +124,7 @@
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="15dp"
                 android:ems="10"
+                android:fontFamily="@font/viga"
                 android:hapticFeedbackEnabled="false"
                 android:hint="Password"
                 android:inputType="textPassword"
@@ -155,6 +159,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_2"
+                android:fontFamily="@font/viga"
                 android:text="Already have an account?"
                 android:textColor="#FFFFFF"
                 app:backgroundTint="#00363a" />

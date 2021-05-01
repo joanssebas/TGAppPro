@@ -10,7 +10,7 @@
     android:layout_marginEnd="0dp"
     android:layout_marginRight="0dp"
     android:layout_marginBottom="0dp"
-    android:background="@color/light_color"
+    android:background="@color/options"
     android:hapticFeedbackEnabled="false"
     tools:context=".MainActivity">
 

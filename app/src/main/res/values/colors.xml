@@ -18,15 +18,22 @@
 
     <color name="text">#428e92</color>
 
+    <color name="options" >#E0F2F1</color>
+    <color name="categories">#80CBC4</color>
     <color name="extra_dark">#00363a</color>
     <color name="unselected">#A7FFEB</color>
 
     <color name="light_color">#e5ffff</color>
+    <color name="logout">#f50057</color>
 
+    <color name="popUpHang">#80cbc4</color>
 
     <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+
+    <color name="purple_500">#80deea</color>
+    <color name="purple_700">#80deea</color>
+
+
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>

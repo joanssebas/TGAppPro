@@ -50,39 +50,47 @@ public class SignupActivity extends AppCompatActivity {
 
                 name= binding.nameBox.getText().toString();
 
-                User user = new User(name,email,pass);
+                if(email.equals("") || pass.equals("") || name.equals("")){
+                    Toast.makeText(SignupActivity.this, "BOTH FIELDS ARE NECESSARY", Toast.LENGTH_SHORT).show();
+                }
 
-                dialog.show();
+                else {
+                    User user = new User(name,email,pass);
 
-                auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                    dialog.show();
 
-                            String uid = task.getResult().getUser().getUid();
-                            database.collection("users")
-                                    .document(uid)
-                                    .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        dialog.dismiss();
-                                        startActivity(new Intent(SignupActivity.this,MainActivity.class));
-                                        finish();
-                                    }else{
-                                        Toast.makeText(SignupActivity.this, task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                    auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+
+                                String uid = task.getResult().getUser().getUid();
+                                database.collection("users")
+                                        .document(uid)
+                                        .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()){
+                                            dialog.dismiss();
+                                            startActivity(new Intent(SignupActivity.this,MainActivity.class));
+                                            finish();
+                                        }else{
+                                            Toast.makeText(SignupActivity.this, task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
 
 
 
-                        }else {
-                            dialog.dismiss();
-                            Toast.makeText(SignupActivity.this, task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                            }else {
+                                dialog.dismiss();
+                                Toast.makeText(SignupActivity.this, task.getException().getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+
             }
         });
 
@@ -92,5 +100,11 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(new Intent(SignupActivity.this,LoginActivity.class));
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

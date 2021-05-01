@@ -41,9 +41,12 @@ public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.
         holder.binding.coins.setText(String.valueOf(user.getCoins()));
         holder.binding.index.setText(String.format("#%d" , position+1));
 
-        Glide.with(context)
+        holder.binding.imageView5.setImageResource(R.drawable.ic_user);
+
+        /**Glide.with(context)
                 .load(user.getProfile())
                 .into(holder.binding.imageView5);
+         **/
     }
 
     @Override

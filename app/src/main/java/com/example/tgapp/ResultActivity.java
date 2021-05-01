@@ -2,7 +2,10 @@ package com.example.tgapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.tgapp.databinding.ActivityResultBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,8 @@ public class ResultActivity extends AppCompatActivity {
 
         binding = ActivityResultBinding.inflate(getLayoutInflater());
 
+
+
         setContentView(binding.getRoot());
 
         int correctAnswers = getIntent().getIntExtra("correct",0);
@@ -35,5 +40,21 @@ public class ResultActivity extends AppCompatActivity {
                 .document(FirebaseAuth.getInstance().getUid())
                 .update("coins", FieldValue.increment(points));
 
+        binding.finishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ResultActivity.this,MainActivity.class));
+            }
+        });
+
+
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+
 }

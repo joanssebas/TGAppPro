@@ -52,20 +52,24 @@ public class ForgotPassword extends AppCompatActivity {
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Toast.makeText(this, "Provide a valid email please", Toast.LENGTH_SHORT).show();
         }
-        progressBar.setVisibility(View.VISIBLE);
-        auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword.this, "Check your email to reset your password", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
+
+        else{
+            progressBar.setVisibility(View.VISIBLE);
+            auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(ForgotPassword.this, "Check your email to reset your password", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        Toast.makeText(ForgotPassword.this, "Try again something wrong happen", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
                 }
-                else{
-                    Toast.makeText(ForgotPassword.this, "Try again something wrong happen", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
+            });
+        }
+
 
 
     }

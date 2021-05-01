@@ -177,4 +177,8 @@ public class activity_speech extends AppCompatActivity {
         final int random = new Random().nextInt(softwareEngineer.length);
         textToRepeat.setText(softwareEngineer[random]);
     }
+
+
+
+
 }

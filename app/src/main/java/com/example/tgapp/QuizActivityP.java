@@ -1,12 +1,15 @@
 package com.example.tgapp;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +31,14 @@ public class QuizActivityP extends AppCompatActivity {
 
     TextView questionText;
 
-    final Handler handler = new Handler(Looper.getMainLooper());
+    Button quizBtnP;
 
+    ImageView heart1,heart2,heart3,heart4,heart5;
+
+
+    final Handler handler = new Handler(Looper.getMainLooper());
+    int contador = 0;
+    String triesLeft = " X X X X X";
 
     ActivityPracticeBinding binding;
     ArrayList<QuestionP> questions;
@@ -46,6 +55,12 @@ public class QuizActivityP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityPracticeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        heart1 = findViewById(R.id.heart1p);
+        heart2 = findViewById(R.id.heart2p);
+        heart3 = findViewById(R.id.heart3p);
+        heart4 = findViewById(R.id.heart4p);
+        heart5 = findViewById(R.id.heart5p);
 
         //text to speech
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -69,6 +84,8 @@ public class QuizActivityP extends AppCompatActivity {
         //lo sacamos de la vista
         questionText = findViewById(R.id.question);
 
+        quizBtnP = findViewById(R.id.quizBtnP);
+
         questionText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +94,13 @@ public class QuizActivityP extends AppCompatActivity {
                 //text convert
 
                 int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
+            }
+        });
+
+        quizBtnP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(QuizActivityP.this,MainActivity.class));
             }
         });
 
@@ -149,7 +173,10 @@ public class QuizActivityP extends AppCompatActivity {
 
         if(selectedAnswer.equals(question.getAnswer())){
             correctAnswers++;
-            int speech = textToSpeech.speak(selectedAnswer,TextToSpeech.QUEUE_FLUSH,null);
+            MediaPlayer player;
+            player = MediaPlayer.create(this,R.raw.right_answer);
+            player.start();
+            int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
             handler.postDelayed(new Runnable() {
                 @Override
@@ -176,9 +203,18 @@ public class QuizActivityP extends AppCompatActivity {
 
 
         }else{
+            MediaPlayer player;
+            player = MediaPlayer.create(this,R.raw.wrong_answer);
+            player.start();
             showAnswer();
 
-            int speech = textToSpeech.speak(selectedAnswer,TextToSpeech.QUEUE_FLUSH,null);
+            int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
+            decreaseAndDisplayTriesLeft();
+            if (contador == 5){
+                player = MediaPlayer.create(this,R.raw.game_over_loser);
+                player.start();
+                startActivity(new Intent(QuizActivityP.this,outOfLives.class));
+            }
             textView.setBackground(getResources().getDrawable(R.drawable.option_wrong));
             handler.postDelayed(new Runnable() {
                 @Override
@@ -189,9 +225,11 @@ public class QuizActivityP extends AppCompatActivity {
                         setNextQuestion();
 
                     }else {
+
                         Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
+
                         startActivity(intent);
 
 
@@ -206,8 +244,8 @@ public class QuizActivityP extends AppCompatActivity {
     }
 
     void reset(){
-        binding.option1.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option2.setBackground(getResources().getDrawable(R.drawable.option_unselected));
+        binding.option1.setBackground(getResources().getDrawable(R.color.options));
+        binding.option2.setBackground(getResources().getDrawable(R.color.options));
 
     }
 
@@ -271,6 +309,7 @@ public class QuizActivityP extends AppCompatActivity {
                     setNextQuestion();
 
                 }else {
+                    
                     Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
                     intent.putExtra("correct",correctAnswers);
                     intent.putExtra("total",questions.size());
@@ -281,5 +320,40 @@ public class QuizActivityP extends AppCompatActivity {
                 }
                 break;
         }
+    }
+    void decreaseAndDisplayTriesLeft(){
+        if (!triesLeft.isEmpty()){
+
+            //Toast.makeText(this, "contador " + contador, Toast.LENGTH_SHORT).show();
+            //take out the last 2 chacracters from the string
+            triesLeft = triesLeft.substring(0, triesLeft.length() -2);
+            contador = contador + 1;
+            if (contador == 1){
+                heart5.setImageResource(R.drawable.broken_heart);
+            }
+            if (contador == 2){
+                heart4.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 3){
+                heart3.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 4){
+                heart2.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 5){
+                heart1.setImageResource(R.drawable.broken_heart);
+
+            }
+
+
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

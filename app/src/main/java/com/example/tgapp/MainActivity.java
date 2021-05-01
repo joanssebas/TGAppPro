@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.content,new HomeFragment());
+        transaction.replace(R.id.content,new PracticeFragment());
         transaction.commit();
 
 
@@ -50,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 switch (i){
                     case 0:
-                        transaction.replace(R.id.content,new HomeFragment());
+
+                        transaction.replace(R.id.content,new PracticeFragment());
                         transaction.commit();
                         break;
 
                     case 1:
-                        transaction.replace(R.id.content,new PracticeFragment());
+                        transaction.replace(R.id.content,new HomeFragment());
                         transaction.commit();
                         break;
                     case 2:
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
+    /**@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_menu,menu);
         return super.onCreateOptionsMenu(menu);
@@ -97,5 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+**/
+
 
 }

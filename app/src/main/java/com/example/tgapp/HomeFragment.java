@@ -58,6 +58,12 @@ public class HomeFragment extends Fragment {
 //navegar fragment a activity
 
 
+        binding.HangmanH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Hangman.class));
+            }
+        });
 
         binding.SpeakBtn.setOnClickListener(new View.OnClickListener() {
             @Override

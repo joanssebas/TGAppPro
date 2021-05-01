@@ -66,6 +66,13 @@ public class PracticeFragment extends Fragment {
             }
         });
 
+        binding.HangmanP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(),Hangman.class));
+            }
+        });
+
         binding.listenBtnP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,4 +103,6 @@ public class PracticeFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+
 }

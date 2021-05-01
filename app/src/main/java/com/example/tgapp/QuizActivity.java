@@ -3,12 +3,15 @@ package com.example.tgapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +27,17 @@ import java.util.Random;
 
 public class QuizActivity extends AppCompatActivity {
 
+    ImageView heart1,heart2,heart3,heart4,heart5;
+
     TextToSpeech textToSpeech;
+
+    int contador = 0;
+    String triesLeft = " X X X X X";
+
 
     //creamos el question text
     TextView questionText;
+    Button quizBtn;
 
     final Handler handler = new Handler(Looper.getMainLooper());
 
@@ -48,6 +58,11 @@ public class QuizActivity extends AppCompatActivity {
         binding=ActivityQuizBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        heart1 = findViewById(R.id.heart1q);
+        heart2 = findViewById(R.id.heart2q);
+        heart3 = findViewById(R.id.heart3q);
+        heart4 = findViewById(R.id.heart4q);
+        heart5 = findViewById(R.id.heart5q);
         //text to speech
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
@@ -66,6 +81,8 @@ public class QuizActivity extends AppCompatActivity {
 
         //lo sacamos de la vista
         questionText = findViewById(R.id.question);
+
+        quizBtn = findViewById(R.id.quizBtn);
 
         questions = new ArrayList<>();
         database = FirebaseFirestore.getInstance();
@@ -90,6 +107,15 @@ public class QuizActivity extends AppCompatActivity {
                 int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
             }
         });
+
+        quizBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(QuizActivity.this,MainActivity.class));
+            }
+        });
+
+
 
 
         database.collection("categories")
@@ -145,7 +171,10 @@ public class QuizActivity extends AppCompatActivity {
 
         if(selectedAnswer.equals(question.getAnswer())){
             correctAnswers++;
-            int speech = textToSpeech.speak(selectedAnswer,TextToSpeech.QUEUE_FLUSH,null);
+            int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
+            MediaPlayer player;
+            player = MediaPlayer.create(this,R.raw.right_answer);
+            player.start();
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
             handler.postDelayed(new Runnable() {
                 @Override
@@ -172,10 +201,20 @@ public class QuizActivity extends AppCompatActivity {
 
 
         }else{
+            MediaPlayer player;
+
+            player = MediaPlayer.create(this,R.raw.wrong_answer);
+            player.start();
             showAnswer();
 
-            int speech = textToSpeech.speak(selectedAnswer,TextToSpeech.QUEUE_FLUSH,null);
+            int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
             textView.setBackground(getResources().getDrawable(R.drawable.option_wrong));
+            decreaseAndDisplayTriesLeft();
+            if (contador == 5){
+                player = MediaPlayer.create(this,R.raw.game_over_loser);
+                player.start();
+                startActivity(new Intent(QuizActivity.this,outOfLives.class));
+            }
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -185,9 +224,12 @@ public class QuizActivity extends AppCompatActivity {
                         setNextQuestion();
 
                     }else {
+
+
                         Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
+
                         startActivity(intent);
 
 
@@ -223,10 +265,10 @@ public class QuizActivity extends AppCompatActivity {
 
 
     void reset(){
-        binding.option1.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option2.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option3.setBackground(getResources().getDrawable(R.drawable.option_unselected));
-        binding.option4.setBackground(getResources().getDrawable(R.drawable.option_unselected));
+        binding.option1.setBackground(getResources().getDrawable(R.color.options));
+        binding.option2.setBackground(getResources().getDrawable(R.color.options));
+        binding.option3.setBackground(getResources().getDrawable(R.color.options));
+        binding.option4.setBackground(getResources().getDrawable(R.color.options));
     }
 
     void resetTimer(){
@@ -303,6 +345,7 @@ public class QuizActivity extends AppCompatActivity {
                     setNextQuestion();
 
                 }else {
+
                     Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
                     intent.putExtra("correct",correctAnswers);
                     intent.putExtra("total",questions.size());
@@ -312,6 +355,43 @@ public class QuizActivity extends AppCompatActivity {
                     //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    void decreaseAndDisplayTriesLeft(){
+        if (!triesLeft.isEmpty()){
+
+            //Toast.makeText(this, "contador " + contador, Toast.LENGTH_SHORT).show();
+            //take out the last 2 chacracters from the string
+            triesLeft = triesLeft.substring(0, triesLeft.length() -2);
+            contador = contador + 1;
+            if (contador == 1){
+                heart5.setImageResource(R.drawable.broken_heart);
+            }
+            if (contador == 2){
+                heart4.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 3){
+                heart3.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 4){
+                heart2.setImageResource(R.drawable.broken_heart);
+
+            }
+            if (contador == 5){
+                heart1.setImageResource(R.drawable.broken_heart);
+
+            }
+
+
         }
     }
 }

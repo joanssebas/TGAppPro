@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tgapp.databinding.FragmentLeaderboardBinding;
 import com.example.tgapp.databinding.FragmentWalletBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +28,7 @@ public class WalletFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     FragmentWalletBinding binding;
@@ -37,6 +41,7 @@ public class WalletFragment extends Fragment {
 
         binding= FragmentWalletBinding.inflate(inflater,container,false);
         database=FirebaseFirestore.getInstance();
+
 
         database.collection("users")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -53,7 +58,11 @@ public class WalletFragment extends Fragment {
 
 
 
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
+
+
+
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/options"
     app:flow_verticalAlign="center"
     tools:context=".activity_speech">
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="80dp"
+        android:fontFamily="@font/viga"
         android:text="Press mic icon to start..."
         android:textColor="#000"
         android:textSize="25dp"
@@ -59,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:fontFamily="@font/viga"
         android:text="Repeat the following word/s"
         android:textColor="@color/black"
         android:textSize="25dp"
@@ -71,8 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:background="@color/darkGreen"
-        android:fontFamily="sans-serif-black"
+        android:background="@color/popUpHang"
+        android:fontFamily="@font/viga"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:text="repeat this to start"
@@ -88,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:background="@drawable/submit_btn"
+        android:fontFamily="@font/viga"
         android:text="Next"
         app:backgroundTint="@color/colorGreen"
         app:layout_constraintEnd_toEndOf="parent"
