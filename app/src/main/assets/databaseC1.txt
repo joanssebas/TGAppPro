@@ -1,0 +1,6 @@
+law-of-increasing-complexity
+adaptive-maintenance
+preventive-maintenance
+perfective-maintenance
+corrective-maintenance
+law-of-continuing-change

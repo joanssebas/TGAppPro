@@ -183,6 +183,7 @@ public class listenActivity extends AppCompatActivity {
                 //int speech = textToSpeech.speak(s,TextToSpeech.QUEUE_FLUSH,null);
                 binding.option2.setBackground(getResources().getDrawable(R.drawable.option_right));
                 setNextQuestion();
+
             }
     }
 
@@ -196,9 +197,9 @@ public class listenActivity extends AppCompatActivity {
                 checkAnswer(selected);
                 break;
 
-            case R.id.nextBtn2:
-                reset();
-                if (index < questions.size()) {
+           /**case R.id.nextBtn2:
+             //   reset();
+               // if (index < questions.size()) {
                     index++;
 
                     setNextQuestion();
@@ -212,6 +213,7 @@ public class listenActivity extends AppCompatActivity {
                     //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                 }
                 break;
+            **/
         }
     }
 
@@ -306,6 +308,7 @@ public void play(View v){
         mediaPlayer.setDataSource(audios[index]);
         mediaPlayer.prepare();
         mediaPlayer.start();
+        //mediaPlayer.release();
     } catch (IOException e) {
         e.printStackTrace();
     }

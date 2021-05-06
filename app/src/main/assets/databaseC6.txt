@@ -1,0 +1,6 @@
+interpreter
+compiler
+call-graph
+cohesion
+information-hiding
+wicked-problem

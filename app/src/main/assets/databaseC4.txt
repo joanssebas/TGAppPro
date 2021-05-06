@@ -1,0 +1,6 @@
+groupware
+end-user
+operating-system
+control
+bios
+manually

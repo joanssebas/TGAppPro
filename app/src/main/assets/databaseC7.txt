@@ -1,0 +1,6 @@
+stopping-rule
+accounting
+enterprise-software
+image-editing
+office-suite
+spreadsheet

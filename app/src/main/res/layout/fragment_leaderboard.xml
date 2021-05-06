@@ -6,10 +6,17 @@
     android:background="@color/options"
     tools:context=".LeaderboardFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/options"
-        tools:listitem="@layout/row_leaderboards" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/options"
+            tools:listitem="@layout/row_leaderboards" />
+
+    </ScrollView>
+
 </FrameLayout>

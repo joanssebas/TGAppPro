@@ -34,6 +34,7 @@ import java.util.Scanner;
 public class Hangman extends AppCompatActivity {
 
     ImageView heart1,heart2,heart3,heart4,heart5;
+    private static MediaPlayer player;
 
     int contador = 0;
 
@@ -77,61 +78,61 @@ public class Hangman extends AppCompatActivity {
             "preventive-maintenance",
             "perfective-maintenance",
             "corrective-maintenance",
-            "law-of-continuing-change",
+            "law-of-continuing-change", //primera categoria
             "investigate",
             "write",
             "install",
             "develop",
             "test",
-            "evaluate",
+            "evaluate",//segunda categoria
             "software",
             "design",
             "presentation",
             "artistic-design",
             "layer",
-            "hci",
+            "hci",//tercera categoria
             "groupware",
             "end-user",
             "operating-system",
             "control",
             "bios",
-            "manually",
+            "manually",//cuarta categoria
             "windowing-system",
             "operate",
             "programming-software",
             "program",
             "source-code-editor",
-            "programming-language",
+            "programming-language",//quinta categoria
             "interpreter",
             "compiler",
             "call-graph",
             "cohesion",
             "information-hiding",
-            "wicked-problem",
+            "wicked-problem",//sexta categoria
             "stopping-rule",
             "accounting",
             "enterprise-software",
             "image-editing",
             "office-suite",
-            "spreadsheet",
+            "spreadsheet",//septima categoria
             "web-browser",
             "focus",
             "dedicated",
             "team-player",
             "ability",
-            "curious",
+            "curious",//octava categoria
             "logical",
             "approach",
             "application",
             "problem-solving",
             "iterative",
-            "synthesis",
+            "synthesis",//novena categoria
             "problem-identification",
             "elicitation",
             "specification",
             "customer-driven",
             "validation",
-            "requirements-engineering",
+            "requirements-engineering",//decima categoria
             "market-driven"
     };
 
@@ -141,61 +142,61 @@ public class Hangman extends AppCompatActivity {
             "the practice of making systems easier to maintain ",
             "the process of fixing faults and making improvements in software ",
             "the practice of repairing software faults ",
-            "states that a structure becomes more complex with every change",
+            "states that a structure becomes more complex with every change", //primera categoria
             "To get more information about something",
             "To form letters and words into sentences or instructions",
             "To operate something into the place where it will function ",
             "To bring something from initial conception to action or implementation ",
             "To operate something to see whether it works",
-            "To carefully study something and assess its qualities",
+            "To carefully study something and assess its qualities",//segunda categoria
             "The programs that perform particular functions on a computer",
             "To plan the way that something will be created ",
             "a way of evaluating a complex system ",
             "the practice of using graphic design in user interfaces ",
             "a level of system operation ",
-            "the study and design of interactions between computers and users",
+            "the study and design of interactions between computers and users",//tercera
             "software that assists groups in working towards a common goal ",
             "the consumer who will ultimately use a product ",
             "a user interface that organizes information into visual boxes ",
             "to have power over the way something functions ",
             "a set of instructions in firmware ",
-            "done directly by a person, without automatic functions",
+            "done directly by a person, without automatic functions",//cuarta
             "programs that manage a computer’s hardware and applications ",
             "to function in a specific manner according to instructions or software ",
             "software used to enter lines of coded text",
             "a series of operations that control the functions of a computer ",
             "any software that supports the development of new applications ",
-            "codes used to write commands to a computer ",
+            "codes used to write commands to a computer ",//quinta
             "something that reads and executes other programs ",
             "an application that decodes instructions written in other languages ",
             "shows the basic structure of how a system will work. ",
             "it is the connection between modules in a system.",
             "Modules conceal information from each other in a process called",
-            "can have multiple causes and may be difficult to solve.",
+            "can have multiple causes and may be difficult to solve.",//sexta
             "A problem without a(n)________ may be difficult or impossible to solve. ",
             "this software records and manages transactions.  ",
             "Many large corporations use __ to maintain consistency in all their systems.  ",
             "software can be used to retouch photographs.   ",
             "A(n) __ usually includes a word processer. ",
-            "Large sets of data can be organized into a __ .   ",
+            "Large sets of data can be organized into a __ .   ",//septima
             "Users often check their email using a(n)__ .",
             "to watch closely",
             "enthusiastic about a task or cause ",
             "someone who takes actions that benefit a group ",
             "the skill to do something ",
-            "wanting to know more about something ",
+            "wanting to know more about something ",//octava
             "based on evidence and reason ",
             "a way of viewing or dealing with something ",
             "the action of putting something into operation ",
             "the ability to eliminate problems ",
             "intended to be updated continually ",
-            "a combination of multiple elements or things ",
+            "a combination of multiple elements or things ",//novena
             "the act of analyzing and describing problems",
             "the process of becoming apparent or realized ",
             "the act of checking that requirements are stated correctly ",
             "designed in response to specific needs of potential users ",
             "the act of checking that requirements are correct ",
-            "the practice of specifying the necessary features and functions of software",
+            "the practice of specifying the necessary features and functions of software",//decima
             "designed for broad purposes "
     };
 
@@ -449,7 +450,6 @@ public class Hangman extends AppCompatActivity {
             //if the letter was not displayed yet
             if (wordDisplayedString.indexOf(letter) < 0){
                 //replace the underscore with that letter
-                MediaPlayer player;
                 player = MediaPlayer.create(this,R.raw.right_answer);
                 player.start();
                 revealLetterInWord(letter);
@@ -477,7 +477,7 @@ public class Hangman extends AppCompatActivity {
         //otherwise if the letter was not found
         else{
             //decrease the number of tries left
-            MediaPlayer player;
+            //MediaPlayer player;
             player = MediaPlayer.create(this,R.raw.wrong_answer);
             player.start();
             decreaseAndDisplayTriesLeft();

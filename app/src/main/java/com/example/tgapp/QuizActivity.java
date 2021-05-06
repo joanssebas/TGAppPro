@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tgapp.databinding.ActivityQuizBinding;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,6 +29,7 @@ import java.util.Random;
 public class QuizActivity extends AppCompatActivity {
 
     ImageView heart1,heart2,heart3,heart4,heart5;
+    MediaPlayer player;
 
     TextToSpeech textToSpeech;
 
@@ -49,8 +51,15 @@ public class QuizActivity extends AppCompatActivity {
 
     FirebaseFirestore database;
     int correctAnswers = 0;
+    //
     int nQuestions = 9;
+//variables para speak
 
+    String idCategoria;
+    String[] respuestas;
+    String[] preguntas;
+
+    int contadorPreguntas = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +84,7 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         final String catId = getIntent().getStringExtra("catId");
-
+        idCategoria = catId;
         Random random = new Random();
         final int rand = random.nextInt(8);
 
@@ -85,6 +94,7 @@ public class QuizActivity extends AppCompatActivity {
         quizBtn = findViewById(R.id.quizBtn);
 
         questions = new ArrayList<>();
+        //Toast.makeText(this, "Questions " + questions, Toast.LENGTH_SHORT).show();
         database = FirebaseFirestore.getInstance();
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -170,9 +180,12 @@ public class QuizActivity extends AppCompatActivity {
 
 
         if(selectedAnswer.equals(question.getAnswer())){
+            respuestas = ArrayUtils.appendToArray(respuestas,question.getAnswer());
+            //Toast.makeText(this, "respuesta " + respuestas[contadorPreguntas], Toast.LENGTH_SHORT).show();
+            //contadorPreguntas++;
             correctAnswers++;
             int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
-            MediaPlayer player;
+            //MediaPlayer player;
             player = MediaPlayer.create(this,R.raw.right_answer);
             player.start();
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
@@ -181,11 +194,14 @@ public class QuizActivity extends AppCompatActivity {
                 public void run() {
                     //Do something after 100ms
                     if ((index +1) < questions.size()) {
+
                         index++;
                         reset();
                         setNextQuestion();
 
-                    }else {
+                    }
+                    /**
+                    else {
                         Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
@@ -194,15 +210,25 @@ public class QuizActivity extends AppCompatActivity {
 
                         //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                     }
-
+**/
+                     else{
+                         Intent intent = new Intent(QuizActivity.this,SpeakQuizC1.class);
+                         intent.putExtra("idCategoria",idCategoria);
+                         intent.putExtra("preguntas", preguntas);
+                         intent.putExtra("respuestas",respuestas);
+                        intent.putExtra("correct",correctAnswers);
+                        intent.putExtra("total",questions.size());
+                        startActivity(intent);
+                    }
                 }
             }, 200);
 
 
 
         }else{
-            MediaPlayer player;
-
+            respuestas = ArrayUtils.appendToArray(respuestas,question.getAnswer());
+            //Toast.makeText(this, "respuesta " + respuestas[contadorPreguntas], Toast.LENGTH_SHORT).show();
+            //contadorPreguntas++;
             player = MediaPlayer.create(this,R.raw.wrong_answer);
             player.start();
             showAnswer();
@@ -214,21 +240,27 @@ public class QuizActivity extends AppCompatActivity {
                 player = MediaPlayer.create(this,R.raw.game_over_loser);
                 player.start();
                 startActivity(new Intent(QuizActivity.this,outOfLives.class));
+
             }
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if ((index + 1)  < questions.size()) {
+                        preguntas = ArrayUtils.appendToArray(preguntas,question.getQuestion());
+                        //Toast.makeText(QuizActivity.this, "pregunta " + preguntas[index], Toast.LENGTH_SHORT).show();
                         index++;
                         reset();
                         setNextQuestion();
-
                     }else {
 
+                        contador = nQuestions;
 
-                        Intent intent = new Intent(QuizActivity.this,ResultActivity.class);
+                        Intent intent = new Intent(QuizActivity.this,SpeakQuizC1.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
+                        intent.putExtra("idCategoria",idCategoria);
+                        intent.putExtra("preguntas", preguntas);
+                        intent.putExtra("respuestas",respuestas);
 
                         startActivity(intent);
 
@@ -252,7 +284,10 @@ public class QuizActivity extends AppCompatActivity {
         if (index < questions.size()){
             binding.questionCounter.setText(String.format("%d/%d", (index + 1), questions.size()));
             question = questions.get(index);
+
+
             binding.question.setText(question.getQuestion());
+
             binding.option1.setText(question.getOption1());
             binding.option2.setText(question.getOption2());
             binding.option3.setText(question.getOption3());
@@ -337,7 +372,7 @@ public class QuizActivity extends AppCompatActivity {
                 TextView selected = (TextView) view;
                 checkAnswer(selected);
                 break;
-
+/**
             case R.id.nextBtn:
                 reset();
                 if (index < questions.size()) {
@@ -355,6 +390,7 @@ public class QuizActivity extends AppCompatActivity {
                     //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                 }
                 break;
+ **/
         }
     }
 

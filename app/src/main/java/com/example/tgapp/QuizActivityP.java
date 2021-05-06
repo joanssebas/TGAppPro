@@ -28,7 +28,7 @@ import java.util.Random;
 public class QuizActivityP extends AppCompatActivity {
 
     TextToSpeech textToSpeech;
-
+    MediaPlayer player;
     TextView questionText;
 
     Button quizBtnP;
@@ -48,6 +48,8 @@ public class QuizActivityP extends AppCompatActivity {
 
     FirebaseFirestore database;
     int correctAnswers = 0;
+
+    String idCategoria;
 
 
     @Override
@@ -74,7 +76,7 @@ public class QuizActivityP extends AppCompatActivity {
         });
 
         final String catId = getIntent().getStringExtra("catId");
-
+        idCategoria = catId;
         Random random = new Random();
         final int rand = random.nextInt(3);
 
@@ -173,10 +175,11 @@ public class QuizActivityP extends AppCompatActivity {
 
         if(selectedAnswer.equals(question.getAnswer())){
             correctAnswers++;
-            MediaPlayer player;
+
             player = MediaPlayer.create(this,R.raw.right_answer);
             player.start();
             int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
+
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
             handler.postDelayed(new Runnable() {
                 @Override
@@ -186,13 +189,14 @@ public class QuizActivityP extends AppCompatActivity {
                         index++;
                         reset();
                         setNextQuestion();
-
+                        //player.release();
                     }else {
-                        Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
+                        Intent intent = new Intent(QuizActivityP.this,SpeakQuizC1.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
+                        intent.putExtra("idCategoria",idCategoria);
                         startActivity(intent);
-
+                        //player.release();
 
                         //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                     }
@@ -203,10 +207,11 @@ public class QuizActivityP extends AppCompatActivity {
 
 
         }else{
-            MediaPlayer player;
+           // MediaPlayer player;
             player = MediaPlayer.create(this,R.raw.wrong_answer);
             player.start();
             showAnswer();
+
 
             int speech = textToSpeech.speak("",TextToSpeech.QUEUE_FLUSH,null);
             decreaseAndDisplayTriesLeft();
@@ -214,6 +219,7 @@ public class QuizActivityP extends AppCompatActivity {
                 player = MediaPlayer.create(this,R.raw.game_over_loser);
                 player.start();
                 startActivity(new Intent(QuizActivityP.this,outOfLives.class));
+
             }
             textView.setBackground(getResources().getDrawable(R.drawable.option_wrong));
             handler.postDelayed(new Runnable() {
@@ -226,10 +232,10 @@ public class QuizActivityP extends AppCompatActivity {
 
                     }else {
 
-                        Intent intent = new Intent(QuizActivityP.this,ResultActivity.class);
+                        Intent intent = new Intent(QuizActivityP.this,SpeakQuizC1.class);
                         intent.putExtra("correct",correctAnswers);
                         intent.putExtra("total",questions.size());
-
+                        intent.putExtra("idCategoria",idCategoria);
                         startActivity(intent);
 
 
@@ -301,7 +307,7 @@ public class QuizActivityP extends AppCompatActivity {
                 checkAnswer(selected);
 
                 break;
-
+/**
             case R.id.nextBtn:
                 reset();
                 if (index < questions.size()) {
@@ -319,6 +325,8 @@ public class QuizActivityP extends AppCompatActivity {
                     //Toast.makeText(this, "Quiz Finished", Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+ **/
         }
     }
     void decreaseAndDisplayTriesLeft(){

@@ -1,0 +1,6 @@
+investigate
+write
+install
+develop
+test
+evaluate

@@ -1,0 +1,6 @@
+windowing-system
+operate
+programming-software
+program
+source-code-editor
+programming-language

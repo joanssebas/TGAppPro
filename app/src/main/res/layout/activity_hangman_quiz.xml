@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/options"
+    tools:context=".HangmanQuiz">
+
+    <TextView
+        android:id="@+id/textTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text="Hangman"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heart5quiz" />
+
+    <TextView
+        android:id="@+id/txtWordToBeGuessed2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text="My word"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meaning2" />
+
+    <TextView
+        android:id="@+id/meaning2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hangmanImg2" />
+
+    <EditText
+        android:id="@+id/edtInput2"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/typing"
+        android:ems="10"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:hint="Type"
+        android:inputType="textPersonName"
+        android:maxLength="1"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtWordToBeGuessed2" />
+
+    <TextView
+        android:id="@+id/txtLettersTried2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text="Letters used:"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtInput2" />
+
+    <Button
+        android:id="@+id/btnReset2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/submit_btn"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:backgroundTint="@color/darkGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTriesLeft2" />
+
+    <TextView
+        android:id="@+id/txtTriesLeft2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/viga"
+        android:gravity="center"
+        android:text=" X X X X X"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLettersTried2" />
+
+    <ImageView
+        android:id="@+id/hangmanImg2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        android:foregroundGravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle2"
+        app:srcCompat="@drawable/hangman" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:onClick="showPopUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tips_pro" />
+
+    <ImageView
+        android:id="@+id/heart1quiz"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/heart2quiz"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/heart1quiz"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/heart3quiz"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/heart2quiz"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/heart4quiz"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/heart3quiz"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/heart5quiz"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/heart4quiz"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/heart" />
+</androidx.constraintlayout.widget.ConstraintLayout>

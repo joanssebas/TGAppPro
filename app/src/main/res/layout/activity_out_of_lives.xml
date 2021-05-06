@@ -40,6 +40,7 @@
         android:drawableLeft="@drawable/flag"
         android:fontFamily="@font/viga"
         android:text="Finish"
+        android:textColor="@color/white"
         app:backgroundTint="@color/darkGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

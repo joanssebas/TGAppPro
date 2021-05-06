@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TGApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".outOfLives"></activity>
+        <activity android:name=".HangmanQuiz"></activity>
+        <activity android:name=".SpeakQuizC1" />
+        <activity android:name=".ListenQuizC1" />
+        <activity android:name=".outOfLives" />
         <activity android:name=".Hangman" />
         <activity android:name=".ResultListenActivity" />
         <activity android:name=".listenActivity" />
