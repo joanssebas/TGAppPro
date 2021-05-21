@@ -138,7 +138,7 @@
         android:id="@+id/quizBtnP"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/submit_btn"
         android:fontFamily="@font/viga"
         android:text="Quit"

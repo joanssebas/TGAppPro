@@ -91,6 +91,7 @@
         android:background="@drawable/submit_btn"
         android:fontFamily="@font/viga"
         android:text="Next"
+        android:textColor="@color/white"
         app:backgroundTint="@color/colorGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

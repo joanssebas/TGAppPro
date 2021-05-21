@@ -13,7 +13,7 @@
         android:id="@+id/questionListen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="@font/viga"
         android:gravity="center"
         android:text="question"
@@ -27,7 +27,7 @@
         android:id="@+id/PlayBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/submit_btn"
         android:fontFamily="@font/viga"
         android:gravity="center"
@@ -83,6 +83,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PlayBtn" />
+
+    <ImageView
+        android:id="@+id/goBackListen"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/leftarrow" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

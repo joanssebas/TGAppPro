@@ -12,6 +12,7 @@ import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class activity_speech extends AppCompatActivity {
     TextToSpeech textToSpeech;
 
     public static final int REQUEST_CODE_SPEECH_INPUT = 1000;
-
+    ImageView goBack;
     TextView mTextTv, textToRepeat;
     ImageButton mVoiceBtn,listenBtn;
     Button nextVoice;
@@ -82,7 +83,7 @@ public class activity_speech extends AppCompatActivity {
             }
         });
 
-
+        goBack=findViewById(R.id.goBackSpeak);
         mTextTv = findViewById(R.id.textTv);
         mVoiceBtn = findViewById(R.id.voiceBtn);
         textToRepeat = findViewById(R.id.TextToRepeat);
@@ -94,6 +95,14 @@ public class activity_speech extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 speak();
+            }
+        });
+
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(activity_speech.this,MainActivity.class));
+                finish();
             }
         });
 

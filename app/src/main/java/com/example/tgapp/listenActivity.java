@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 public class listenActivity extends AppCompatActivity {
 
 
-
+    ImageView goBack;
     TextView questionText;
 
     final Handler handler = new Handler(Looper.getMainLooper());
@@ -71,7 +72,7 @@ public class listenActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         questionText = findViewById(R.id.question);
-
+        goBack = findViewById(R.id.goBackListen);
         questions = new ArrayList<>();
         database = FirebaseFirestore.getInstance();
 
@@ -107,7 +108,21 @@ public class listenActivity extends AppCompatActivity {
             }
         });
 
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(listenActivity.this,MainActivity.class));
+            }
+        });
 
+
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 
     void checkAnswer(TextView textView){

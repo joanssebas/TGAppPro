@@ -237,11 +237,11 @@ public class Hangman extends AppCompatActivity {
         heart4.setImageResource(R.drawable.heart);
         heart5.setImageResource(R.drawable.heart);
         hangmanImg.setImageResource(R.drawable.hangman);
-        ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",400f);
+        /**ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",400f);
         animator.setDuration(animationDutarion);
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(animator);
-        animatorSet.start();
+        animatorSet.start();**/
         Collections.shuffle(myListOfWords);
         wordToBeGuessed = myListOfWords.get(0);
 
@@ -463,11 +463,11 @@ public class Hangman extends AppCompatActivity {
                     player = MediaPlayer.create(this,R.raw.good_idea_bell);
                     player.start();
                     hangmanImg.setImageResource(R.drawable.happy);
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",420f);
+                    /**ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",420f);
                     animator.setDuration(animationDutarion);
                     AnimatorSet animatorSet = new AnimatorSet();
                     animatorSet.playTogether(animator);
-                    animatorSet.start();
+                    animatorSet.start();**/
                     txtTriesLeft.setText(WinningMessage);
                 }
 
@@ -490,11 +490,11 @@ public class Hangman extends AppCompatActivity {
                 player = MediaPlayer.create(this,R.raw.game_over_loser);
                 player.start();
                 hangmanImg.setImageResource(R.drawable.dead);
-                ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",420f);
+                /**ObjectAnimator animator = ObjectAnimator.ofFloat(hangmanImg,"x",420f);
                 animator.setDuration(animationDutarion);
                 AnimatorSet animatorSet = new AnimatorSet();
                 animatorSet.playTogether(animator);
-                animatorSet.start();
+                animatorSet.start();**/
                 txtTriesLeft.setText(LossingMessage);
                 txtWordToBeGuessed.setText(wordToBeGuessed);
             }
