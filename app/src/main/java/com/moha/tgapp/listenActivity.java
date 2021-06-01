@@ -2,7 +2,9 @@ package com.moha.tgapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -11,6 +13,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +33,7 @@ public class listenActivity extends AppCompatActivity {
 
     ImageView goBack;
     TextView questionText;
-
+    Button playbtn;
     final Handler handler = new Handler(Looper.getMainLooper());
 
     ActivityListenBinding binding;
@@ -71,6 +74,7 @@ public class listenActivity extends AppCompatActivity {
         binding = ActivityListenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        playbtn = findViewById(R.id.PlayBtn);
         questionText = findViewById(R.id.question);
         goBack = findViewById(R.id.goBackListen);
         questions = new ArrayList<>();
@@ -125,11 +129,14 @@ public class listenActivity extends AppCompatActivity {
         finish();
     }
 
+    @SuppressLint("ResourceAsColor")
     void checkAnswer(TextView textView){
         String selectedAnswer = textView.getText().toString();
 
         if (selectedAnswer.equals(question.getAnswer())){
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
+            playbtn.setBackgroundColor(R.color.darkGreen);
+            playbtn.setBackground(getResources().getDrawable(R.drawable.submit_btn));
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -149,6 +156,8 @@ public class listenActivity extends AppCompatActivity {
         else{
             showAnswer();
             textView.setBackground(getResources().getDrawable(R.drawable.option_wrong));
+            playbtn.setBackgroundColor(R.color.darkGreen);
+            playbtn.setBackground(getResources().getDrawable(R.drawable.submit_btn));
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -297,8 +306,11 @@ public class listenActivity extends AppCompatActivity {
 
  }
 **/
+@SuppressLint("ResourceAsColor")
 public void play(View v){
-
+playbtn.setEnabled(false);
+playbtn.setBackgroundColor(R.color.Disabled);
+//playbtn.setBackground(getResources().getDrawable(R.drawable.submit_btn));
 /**
     try {
         MediaPlayer mediaPlayer = new MediaPlayer();
@@ -328,7 +340,16 @@ public void play(View v){
         e.printStackTrace();
     }
 
+    new Handler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            playbtn.setEnabled(true);
+            playbtn.setBackgroundColor(R.color.darkGreen);
+            playbtn.setBackground(getResources().getDrawable(R.drawable.submit_btn));
 
+            Toast.makeText(listenActivity.this, "Try to listen again", Toast.LENGTH_SHORT).show();
+        }
+    },26000);
 
 
 
